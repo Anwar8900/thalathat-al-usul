@@ -3,7 +3,7 @@
    يُخزّن مسبقاً كل صفحات الموقع وموارده، ليعمل بالكامل دون إنترنت.
    ========================================================================== */
 
-const VERSION    = 'v1.1.0';
+const VERSION    = 'v1.1.1';
 const CACHE_NAME = 'thalathat-al-usul-' + VERSION;
 
 /* كل ما يحتاجه الموقع ليعمل بلا إنترنت */
@@ -14,7 +14,7 @@ const PRECACHE = [
   './asl-2.html',
   './asl-3.html',
   './quiz.html',
-  './manifest.webmanifest',
+  './manifest.json',
   './assets/css/styles.css',
   './assets/js/app.js',
   './assets/js/quiz-data.js',

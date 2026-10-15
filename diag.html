@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#0e8253">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="assets/img/icon-180.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -71,6 +71,7 @@
   row('سياق آمن HTTPS', window.isSecureContext, '');
   row('دعم ServiceWorker', 'serviceWorker' in navigator, '');
   row('دعم Cache API', typeof caches !== 'undefined', '');
+  row('إصدار الكود', window.USUL_APP_VERSION || 'قديم — أعد تحميل الصفحة', '');
 
   function render() {
     document.getElementById('diagTable').innerHTML =
@@ -80,21 +81,59 @@
           (r.note ? '<br><small>' + r.note + '</small>' : '') + '</td></tr>';
       }).join('');
   }
-  render();
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistration().then(function (reg) {
-      row('مسجّل SW', !!reg, reg ? reg.scope : '');
-      row('SW نشط', !!(reg && reg.active), reg && reg.active ? reg.active.state : '');
-      render();
-      return caches.keys();
-    }).then(function (keys) {
-      row('مخزّنات', true, keys.join(', ') || '(فارغ)');
-      render();
+  var btn = document.getElementById('installBtn');
+  row('زر التثبيت موجود', !!btn, '');
+  var btnVisRow = { k: 'زر التثبيت ظاهر', ok: '…', note: 'يفحص بعد اكتمال التحميل' };
+  rows.push(btnVisRow);
+  var swRegRow = { k: 'مسجّل SW', ok: '…', note: 'يفحص بعد اكتمال التحميل' };
+  rows.push(swRegRow);
+  var swActRow = { k: 'SW نشط', ok: '…', note: '' };
+  rows.push(swActRow);
+  var cacheRow = { k: 'مخزّنات', ok: '…', note: '' };
+  rows.push(cacheRow);
+  var testBtn = document.getElementById('installTestBtn');
+  if (btn) {
+    testBtn.hidden = false;
+    testBtn.addEventListener('click', function () {
+      btn.click();
+      setTimeout(function () {
+        var g = !!document.querySelector('.guide');
+        row('النافذة ظهرت بعد الضغط', g, g ? '' : 'الزر لا يبني النافذة — أخبر المطوّر');
+        render();
+      }, 400);
     });
   }
+  render();
 
-  fetch('manifest.webmanifest').then(function (r) {
+  // الفحوصات المتأخرة: بعد اكتمال التحميل وتشغيل كود الموقع بالكامل
+  function lateChecks() {
+    if (btn) {
+      btnVisRow.ok = !btn.hidden;
+      btnVisRow.note = btn.hidden ? 'مخفي (مثبّت فعلاً أو خلل)' : 'ظاهر في الأعلى بجانب زر الليل/النهار';
+      testBtn.textContent = 'زر التثبيت ' + (btn.hidden ? 'مخفي' : 'ظاهر') + ' — اضغط للتجربة';
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then(function (reg) {
+        swRegRow.ok = !!reg;
+        swRegRow.note = reg ? reg.scope : '';
+        swActRow.ok = !!(reg && reg.active);
+        swActRow.note = reg && reg.active ? reg.active.state : '';
+        render();
+        return caches.keys();
+      }).then(function (keys) {
+        cacheRow.ok = true;
+        cacheRow.note = keys.join(', ') || '(فارغ)';
+        render();
+      });
+    }
+    render();
+  }
+  if (document.readyState === 'complete') { lateChecks(); }
+  else { window.addEventListener('load', lateChecks); }
+  setTimeout(lateChecks, 2500);
+
+  fetch('manifest.json').then(function (r) {
     row('ملف manifest', r.ok, r.status + ' ' + (r.headers.get('content-type') || ''));
     render();
     return r.ok ? r.json() : null;
@@ -106,17 +145,6 @@
       render();
     }
   });
-
-  var btn = document.getElementById('installBtn');
-  row('زر التثبيت موجود', !!btn, '');
-  var testBtn = document.getElementById('installTestBtn');
-  if (btn) {
-    testBtn.hidden = false;
-    testBtn.textContent = 'زر التثبيت ' + (btn.hidden ? 'مخفي' : 'ظاهر') + ' — اضغط للتجربة';
-    testBtn.addEventListener('click', function () { btn.click(); });
-    row('زر التثبيت ظاهر', !btn.hidden, btn.hidden ? 'مخفي (مثبّت فعلاً أو مشكلة في العرض)' : '');
-  }
-  render();
 
   document.getElementById('wipeBtn').addEventListener('click', function () {
     if (!confirm('سيمسح المخزّن القديم ويعيد التحميل. متابعة؟')) return;
