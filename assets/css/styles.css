@@ -599,6 +599,40 @@ li::marker { color: var(--accent); }
 .home-btn:active { transform: translateY(-1px) scale(.99); }
 
 /* ---------- 10. محتوى الصفحة ---------- */
+/* ---------- 9ب. رمز ﷺ باللون الذهبي في كل الصفحات ---------- */
+.hz {
+  color: var(--gold-deep, #8a6a12);
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* خلفيات داكنة: نحتاج ذهبياً أفتح ليظهر */
+[data-theme="dark"] .hz,
+body.page .hz,
+.hero .hz,
+.footer .hz,
+.page-head .hz {
+  color: var(--gold, #c8a44d);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+}
+/* البطاقات ذات الخلفية الفاتحة في الوضع النهاري */
+.card .hz,
+.info-item .hz,
+.list-cards .hz,
+.pager .hz,
+.quiz-card .hz,
+.nav .hz,
+.brand-text .hz {
+  color: var(--gold-deep, #8a6a12);
+}
+[data-theme="dark"] .card .hz,
+[data-theme="dark"] .info-item .hz,
+[data-theme="dark"] .list-cards .hz,
+[data-theme="dark"] .pager .hz,
+[data-theme="dark"] .nav .hz,
+[data-theme="dark"] .brand-text .hz {
+  color: var(--gold, #c8a44d);
+}
+
 /* ---------- 10. محتوى الصفحة (خلفية أخضر داكنة دائماً لإبراز النص) ---------- */
 body.page {
   --bg: #05201a;
