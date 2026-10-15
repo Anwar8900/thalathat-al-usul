@@ -347,13 +347,13 @@ li::marker { color: var(--accent); }
 /* بدون أسهم في الطرفين — الإطار بسيط يناسب النص فقط */
 .hero-answer::before,
 .hero-answer::after { content: none; }
-.hero-badges span {
+.hero-badges > span {
   padding: .45rem 1.05rem; border-radius: var(--r-pill);
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.26);
   font-weight: 700; font-size: .92rem; backdrop-filter: blur(6px);
   transition: transform var(--t-fast), background-color var(--t-fast);
 }
-.hero-badges span:hover { transform: translateY(-3px); background: rgba(255,255,255,.22); }
+.hero-badges > span:hover { transform: translateY(-3px); background: rgba(255,255,255,.22); }
 .scroll-hint {
   position: absolute; inset-block-end: 1.4rem; inset-inline-start: 50%;
   transform: translateX(-50%);
@@ -698,6 +698,8 @@ li::marker { color: var(--accent); }
   font-weight: 700;
   white-space: nowrap;
 }
+/* يمنع انفصال الكلمة عن رمز ﷺ عند ضيق الشاشة */
+.nw { white-space: nowrap; }
 /* خلفيات داكنة: نحتاج ذهبياً أفتح ليظهر */
 [data-theme="dark"] .hz,
 body.page .hz,
