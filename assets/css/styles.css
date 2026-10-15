@@ -695,6 +695,26 @@ body.page {
   margin: 1.6rem 0;
 }
 .note b { font-family: var(--font-display); color: var(--gold-soft); }
+/* مربع الفائدة: عنوان + نص */
+.note-label {
+  display: inline-block;
+  padding: .28rem .85rem; margin-bottom: .85rem;
+  border-radius: var(--r-pill);
+  background: linear-gradient(140deg, var(--gold-soft), var(--gold));
+  color: var(--green-900, #04241a);
+  font-family: var(--font-display); font-weight: 800; font-size: .88rem;
+  letter-spacing: .02em;
+}
+.note .note-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.06rem, 1rem + .45vw, 1.28rem);
+  font-weight: 600;
+  line-height: 2.15;
+  color: var(--gold-soft);
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+}
 .reflect {
   padding: 1.6rem 1.7rem; border-radius: var(--r-lg);
   background: rgba(10, 46, 35, .8); border: 1px solid var(--line);
