@@ -234,4 +234,114 @@
       if (target === here) a.setAttribute('aria-current', 'page');
     });
   });
+
+  /* ---------- 10) تثبيت الموقع (PWA) ---------- */
+  var installPrompt = null;   // حدث beforeinstallprompt (أندرويد / كروم)
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+
+  function showInstall() {
+    var b = $('.install-btn');
+    if (b) b.hidden = false;
+  }
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    installPrompt = e;
+    if (!isStandalone) showInstall();
+  });
+
+  window.addEventListener('appinstalled', function () {
+    installPrompt = null;
+    isStandalone = true;
+    var b = $('.install-btn');
+    if (b) b.hidden = true;
+    toast('تم تثبيت الموقع على جهازك');
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = $('#installBtn');
+    if (!btn) return;
+
+    // إخفاء الزر إن كان التطبيق مثبّتاً فعلاً
+    if (isStandalone) { btn.hidden = true; return; }
+
+    // آيفون: لا يدعم التثبيت التلقائي، نعرض الزر ليشرح خطوات "إضافة إلى الشاشة الرئيسية"
+    if (isIOS) showInstall();
+
+    btn.addEventListener('click', function () {
+      if (installPrompt) {
+        var res = null;
+        try {
+          res = installPrompt.prompt();
+        } catch (err) {
+          res = null;
+        }
+        installPrompt = null;
+        // المتصفح الذي لا يفتح نافذة التثبيت (بلا واجهة) => نعرض الخطوات��ت يدوياً
+        if (!res || typeof res.then !== 'function') showInstallGuide();
+        return;
+      }
+      // متصفحات لا تدعم التثبيت التلقائي (آيفون / سفاري / بعض المتصفحات)
+      showInstallGuide();
+    });
+  });
+
+  function showInstallGuide() {
+    var isIOSSafari = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var steps = isIOSSafari
+      ? ['اضغط زر المشاركة في شريط سفاري (المربّع والسهم)',
+         'اختر «إضافة إلى الشاشة الرئيسية»',
+         'اضغط «إضافة»']
+      : ['افتح الموقع في متصفح Chrome أو Edge',
+         'اضغط قائمة المتصفح (⋮)',
+         'اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»'];
+
+    var box = document.createElement('div');
+    box.className = 'guide';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', 'طريقة التثبيت');
+    var head = 'تثبيت الموقع على جهازك';
+    box.innerHTML = '<h3></h3><ol></ol><button type="button" class="guide-close">فهمت</button>';
+    box.querySelector('h3').textContent = head;
+    var ol = box.querySelector('ol');
+    steps.forEach(function (s) {
+      var li = document.createElement('li');
+      li.textContent = s;
+      ol.appendChild(li);
+    });
+    box.querySelector('.guide-close').addEventListener('click', function () { box.remove(); });
+    document.body.appendChild(box);
+    box.querySelector('.guide-close').focus();
+
+    // نستمع للنقر خارج النافذة بعد انتهاء النقر الحالي (وإلا أُغلقت فور فتحها)
+    document.addEventListener('click', function onOutside(e) {
+      if (box.contains(e.target)) return;
+      box.remove();
+      document.removeEventListener('click', onOutside);
+    });
+    document.addEventListener('keydown', function onKey(e) {
+      if (e.key !== 'Escape') return;
+      box.remove();
+      document.removeEventListener('keydown', onKey);
+    });
+  }
+
+  /* ---------- 11) تسجيل Service Worker للعمل دون إنترنت ---------- */
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        // فحص التحديثات
+        reg.addEventListener('updatefound', function () {
+          var sw = reg.installing;
+          if (!sw) return;
+          sw.addEventListener('statechange', function () {
+            if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+              toast('يتوفّر تحديث للموقع — أعد التحميل');
+            }
+          });
+        });
+      }).catch(function () { /* لا مشكلة */ });
+    });
+  }
 })();

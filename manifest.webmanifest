@@ -1,0 +1,62 @@
+{
+  "name": "ثلاثة الأصول — معرفة العبد ربه ودينه ونبيه",
+  "short_name": "ثلاثة الأصول",
+  "description": "موقع مبسّط لكتاب «ثلاثة الأصول وأدلتها» للشيخ محمد التميمي: معرفة العبد ربه، ومعرفة العبد دينه، ومعرفة العبد نبيه محمد صلى الله عليه وسلم — مع اختبار معلومات.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "thalathat-al-usul",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#05201a",
+  "theme_color": "#0e8253",
+  "categories": ["education", "books", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "أعرف ربه",
+      "short_name": "أصل ١",
+      "url": "./asl-1.html",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "أعرف دينه",
+      "short_name": "أصل ٢",
+      "url": "./asl-2.html",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "أعرف نبيه ﷺ",
+      "short_name": "أصل ٣",
+      "url": "./asl-3.html",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "أختبر معلوماتك",
+      "short_name": "الاختبار",
+      "url": "./quiz.html",
+      "icons": [{ "src": "assets/img/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

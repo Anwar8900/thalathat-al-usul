@@ -733,6 +733,35 @@ body.page {
 .toast.show { opacity: 1; visibility: visible; transform: none; }
 .toast svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
+/* ---------- 12ب. نافذة شرح التثبيت ---------- */
+.guide {
+  position: fixed; inset-block-start: 50%; inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99; width: min(420px, calc(100% - 2rem));
+  padding: 1.8rem 1.7rem;
+  border-radius: var(--r-lg);
+  background: var(--surface); color: var(--text);
+  border: 2px solid rgba(200, 164, 77, .5);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+  animation: card-rise .32s var(--ease) both;
+}
+.guide h3 {
+  margin: 0 0 1rem; font-size: 1.2rem;
+  color: var(--accent);
+}
+.guide ol { margin: 0 0 1.4rem; padding-inline-start: 1.3em; }
+.guide li { margin-bottom: .55rem; line-height: 1.8; }
+.guide li::marker { color: var(--accent); font-weight: 800; }
+.guide-close {
+  width: 100%; padding: .8rem;
+  border: 0; border-radius: var(--r-pill);
+  background: var(--grad-brand); color: var(--on-accent);
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  cursor: pointer; transition: transform var(--t-fast), filter var(--t-fast);
+}
+.guide-close:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.guide-close:focus-visible { box-shadow: var(--ring); }
+
 /* ---------- 13. التذييل ---------- */
 .footer {
   margin-top: 2rem; padding-block: 2.6rem 2.2rem;
