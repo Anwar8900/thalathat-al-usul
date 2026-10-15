@@ -599,6 +599,127 @@ li::marker { color: var(--accent); }
 .home-btn:active { transform: translateY(-1px) scale(.99); }
 
 /* ---------- 10. محتوى الصفحة ---------- */
+/* ---------- 8ب. مربعات المسائل الأربع ---------- */
+.steps-lead {
+  display: inline-grid; gap: .4rem;
+  margin: 1.4rem auto 0; padding: 0; list-style: none;
+  text-align: start;
+  counter-reset: step;
+}
+.steps-lead li {
+  position: relative; padding-inline-start: 2.1rem; margin: 0;
+  color: var(--text-soft); font-size: 1.04rem; line-height: 1.95;
+}
+.steps-lead li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; inset-inline-start: 0; inset-block-start: .28em;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--grad-brand); color: var(--on-accent);
+  font-size: .82rem; font-weight: 800; font-family: var(--font-display);
+}
+.steps-lead b { color: var(--accent); font-family: var(--font-display); }
+
+.masafiq {
+  display: grid; gap: 1.3rem; margin-top: 2.4rem;
+  position: relative;
+  padding: clamp(1.1rem, .5rem + 1.6vw, 1.9rem);
+  border-radius: calc(var(--r-lg) + 12px);
+  background: linear-gradient(160deg, rgba(240,215,154,.15) 0%, rgba(200,164,77,.05) 45%, rgba(240,215,154,.11) 100%);
+  border: 2px solid rgba(200, 164, 77, .55);
+  box-shadow:
+    0 0 0 6px rgba(200, 164, 77, .08),
+    0 24px 56px rgba(6, 58, 41, .18),
+    inset 0 1px 0 rgba(255, 255, 255, .35);
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.masafiq:hover {
+  border-color: rgba(200, 164, 77, .85);
+  box-shadow:
+    0 0 0 7px rgba(200, 164, 77, .12),
+    0 28px 64px rgba(6, 58, 41, .24),
+    inset 1px 0 0 rgba(255, 255, 255, .45);
+}
+/* زوايا ذهبية مزخرفة */
+.masafiq::before, .masafiq::after {
+  content: ""; position: absolute;
+  width: 26px; height: 26px;
+  border: 3px solid var(--gold);
+  opacity: .9;
+  transition: opacity var(--t), width var(--t), height var(--t);
+}
+.masafiq::before {
+  top: 10px; inset-inline-start: 10px;
+  border-inline-end: 0; border-block-end: 0;
+  border-start-start-radius: 12px;
+}
+.masafiq::after {
+  bottom: 10px; inset-inline-end: 10px;
+  border-inline-start: 0; border-block-start: 0;
+  border-end-end-radius: 12px;
+}
+.masafiq:hover::before, .masafiq:hover::after { opacity: 1; width: 30px; height: 30px; }
+
+.masafa-card {
+  position: relative;
+  padding: 1.9rem 1.8rem 1.7rem;
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t), background-color var(--t);
+}
+.masafa-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--green-400);
+  background: var(--surface);
+}
+.masafa-num {
+  position: absolute; inset-block-start: 1.1rem; inset-inline-end: 1.4rem;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, var(--gold-soft), var(--gold));
+  color: var(--green-900, #04241a);
+  font-family: var(--font-display); font-weight: 800; font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+}
+.masafa-head { margin-bottom: .8rem; padding-inline-end: 3.6rem; }
+.masafa-head h3 {
+  margin: 0 0 .5rem; color: var(--accent);
+  font-size: clamp(1.15rem, 1.02rem + .65vw, 1.5rem);
+}
+.masafa-tag {
+  margin: 0 0 .3rem;
+  font-size: .95rem; font-weight: 700;
+  color: var(--gold-deep, #8a6a12);
+}
+.masafa-text { margin: 0; color: var(--text-soft); line-height: 2.05; }
+
+[data-theme="dark"] .masafa-card { background: rgba(10, 46, 35, .8); }
+[data-theme="dark"] .masafa-card:hover { background: rgba(16, 70, 52, .9); }
+[data-theme="dark"] .masafiq {
+  background: linear-gradient(160deg, rgba(240,215,154,.12) 0%, rgba(200,164,77,.04) 45%, rgba(240,215,154,.09) 100%);
+  border-color: rgba(200, 164, 77, .5);
+  box-shadow:
+    0 0 0 6px rgba(200, 164, 77, .06),
+    0 24px 56px rgba(0, 0, 0, .45),
+    inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+[data-theme="dark"] .masafiq:hover {
+  border-color: rgba(240, 215, 154, .8);
+  box-shadow:
+    0 0 0 7px rgba(200, 164, 77, .1),
+    0 28px 64px rgba(0, 0, 0, .55),
+    inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+[data-theme="dark"] .masafiq::before, [data-theme="dark"] .masafiq::after { border-color: var(--gold-soft); }
+[data-theme="dark"] .masafa-head h3 { color: var(--green-400); }
+[data-theme="dark"] .masafa-tag { color: var(--gold, #c8a44d); }
+[data-theme="dark"] .masafa-text { color: var(--text-soft); }
+[data-theme="dark"] .steps-lead b { color: var(--green-400); }
+[data-theme="dark"] .steps-lead li { color: var(--text-soft); }
+
 /* ---------- 9ب. رمز ﷺ باللون الذهبي في كل الصفحات ---------- */
 .hz {
   color: var(--gold-deep, #8a6a12);
