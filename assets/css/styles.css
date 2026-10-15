@@ -906,7 +906,18 @@ body.page {
 .quiz-verdict.bad { color: #fca5a5; }
 .quiz-why { margin: 0; color: #cfe8dc; font-size: .98rem; line-height: 1.9; }
 
-.quiz-nav { margin-top: 1.6rem; display: flex; justify-content: flex-start; }
+.quiz-nav { margin-top: 1.6rem; display: flex; justify-content: flex-end; }
+/* زر السؤال التالي: خلفية بيضاء ونص أخضر داكن، على اليسار */
+.quiz-nav .btn {
+  background: #ffffff;
+  color: var(--green-900, #04241a);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .28);
+}
+.quiz-nav .btn:hover {
+  background: #f2fbf6;
+  color: var(--green-900, #04241a);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .34);
+}
 
 /* النتيجة */
 .quiz-result {
