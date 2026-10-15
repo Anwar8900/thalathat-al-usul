@@ -315,12 +315,15 @@
     document.body.appendChild(box);
     box.querySelector('.guide-close').focus();
 
-    // نستمع للنقر خارج النافذة بعد انتهاء النقر الحالي (وإلا أُغلقت فور فتحها)
-    document.addEventListener('click', function onOutside(e) {
-      if (box.contains(e.target)) return;
-      box.remove();
-      document.removeEventListener('click', onOutside);
-    });
+    // نؤجّل الاستماع للنقر الخارجي حتى تنتهي النقرة الحالية تماماً،
+    // وإلا أُغلقت النافذة فور فتحها بنفس النقرة التي فتحتها
+    setTimeout(function () {
+      document.addEventListener('click', function onOutside(e) {
+        if (box.contains(e.target)) return;
+        box.remove();
+        document.removeEventListener('click', onOutside);
+      });
+    }, 0);
     document.addEventListener('keydown', function onKey(e) {
       if (e.key !== 'Escape') return;
       box.remove();

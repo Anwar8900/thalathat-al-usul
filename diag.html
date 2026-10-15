@@ -29,6 +29,11 @@
       <img src="assets/img/logo.svg" alt="شعار" width="40" height="40">
       <span class="brand-text"><b>تشخيص</b><small>زر التثبيت</small></span>
     </a>
+    <div class="header-tools">
+      <button class="icon-btn install-btn" type="button" id="installBtn" hidden title="تثبيت الموقع على الجهاز" aria-label="تثبيت الموقع على الجهاز">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4.5 18.5v.8a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-.8"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -60,7 +65,7 @@
   var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
   var installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 
-  row('المتصفح', true, (navigator.userAgent || '').slice(0, 80));
+  row('المتصفح', (navigator.userAgent || '').slice(0, 90), '');
   row('آيفون', isIOS, '');
   row('مثبّت فعلاً؟', installed, installed ? 'التطبيق مثبت — الزر يختفي عمداً' : '');
   row('سياق آمن HTTPS', window.isSecureContext, '');
