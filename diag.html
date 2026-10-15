@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تشخيص التثبيت | ثلاثة الأصول</title>
+<meta name="theme-color" content="#0e8253">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="assets/css/styles.css">
+<style>
+.diag-table { margin: 1.2rem 0; border-collapse: collapse; width: 100%; font-size: .95rem; }
+.diag-table td, .diag-table th { border: 1px solid var(--line); padding: .5rem .7rem; text-align: start; }
+.diag-table th { background: var(--surface-2); }
+.diag-ok { color: #4ade80; font-weight: 800; }
+.diag-bad { color: #fca5a5; font-weight: 800; }
+#wipeBtn { margin-top: 1rem; }
+</style>
+</head>
+<body class="page">
+
+<header class="header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="الصفحة الرئيسية">
+      <img src="assets/img/logo.svg" alt="شعار" width="40" height="40">
+      <span class="brand-text"><b>تشخيص</b><small>زر التثبيت</small></span>
+    </a>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">لمطوّر الموقع</span>
+    <h1>تشخيص التثبيت</h1>
+    <p class="lead">افتح هذه الصفحة على جوالك وأخبرني بالنتيجة لتحديد المشكلة بدقة.</p>
+  </div>
+</section>
+
+<main class="prose">
+  <div class="container-narrow">
+    <table class="diag-table" id="diagTable"></table>
+    <button class="btn" type="button" id="installTestBtn" hidden>جرّب زر التثبيت هنا</button>
+    <button class="btn btn-ghost" type="button" id="wipeBtn">مسح المخزّن القديم وإعادة التحميل</button>
+  </div>
+</main>
+
+<script src="assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var rows = [];
+  function row(k, ok, note) {
+    rows.push({ k: k, ok: ok, note: note || '' });
+  }
+
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
+  var installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+
+  row('المتصفح', true, (navigator.userAgent || '').slice(0, 80));
+  row('آيفون', isIOS, '');
+  row('مثبّت فعلاً؟', installed, installed ? 'التطبيق مثبت — الزر يختفي عمداً' : '');
+  row('سياق آمن HTTPS', window.isSecureContext, '');
+  row('دعم ServiceWorker', 'serviceWorker' in navigator, '');
+  row('دعم Cache API', typeof caches !== 'undefined', '');
+
+  function render() {
+    document.getElementById('diagTable').innerHTML =
+      rows.map(function (r) {
+        return '<tr><td>' + r.k + '</td><td class="' + (r.ok === true ? 'diag-ok' : (r.ok === false ? 'diag-bad' : '')) + '">' +
+          (r.ok === true ? 'نعم' : (r.ok === false ? 'لا' : r.ok)) +
+          (r.note ? '<br><small>' + r.note + '</small>' : '') + '</td></tr>';
+      }).join('');
+  }
+  render();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistration().then(function (reg) {
+      row('مسجّل SW', !!reg, reg ? reg.scope : '');
+      row('SW نشط', !!(reg && reg.active), reg && reg.active ? reg.active.state : '');
+      render();
+      return caches.keys();
+    }).then(function (keys) {
+      row('مخزّنات', true, keys.join(', ') || '(فارغ)');
+      render();
+    });
+  }
+
+  fetch('manifest.webmanifest').then(function (r) {
+    row('ملف manifest', r.ok, r.status + ' ' + (r.headers.get('content-type') || ''));
+    render();
+    return r.ok ? r.json() : null;
+  }).then(function (m) {
+    if (m) {
+      row('اسم التطبيق', true, m.name);
+      row('العرض', m.display === 'standalone', m.display);
+      row('الأيقونات', (m.icons || []).length >= 2, (m.icons || []).map(function (i) { return i.sizes; }).join(', '));
+      render();
+    }
+  });
+
+  var btn = document.getElementById('installBtn');
+  row('زر التثبيت موجود', !!btn, '');
+  var testBtn = document.getElementById('installTestBtn');
+  if (btn) {
+    testBtn.hidden = false;
+    testBtn.textContent = 'زر التثبيت ' + (btn.hidden ? 'مخفي' : 'ظاهر') + ' — اضغط للتجربة';
+    testBtn.addEventListener('click', function () { btn.click(); });
+    row('زر التثبيت ظاهر', !btn.hidden, btn.hidden ? 'مخفي (مثبّت فعلاً أو مشكلة في العرض)' : '');
+  }
+  render();
+
+  document.getElementById('wipeBtn').addEventListener('click', function () {
+    if (!confirm('سيمسح المخزّن القديم ويعيد التحميل. متابعة؟')) return;
+    (async function () {
+      try {
+        var rs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(rs.map(function (r) { return r.unregister(); }));
+        var ks = await caches.keys();
+        await Promise.all(ks.map(function (k) { return caches.delete(k); }));
+        localStorage.removeItem('thalathat-al-usul-theme');
+      } catch (e) { /* */ }
+      location.reload();
+    })();
+  });
+})();
+</script>
+</body>
+</html>
