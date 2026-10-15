@@ -237,7 +237,6 @@
 
   /* ---------- 10) تثبيت الموقع (PWA) ---------- */
   var installPrompt = null;   // حدث beforeinstallprompt (أندرويد / كروم)
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 
   function showInstall() {
@@ -263,11 +262,13 @@
     var btn = $('#installBtn');
     if (!btn) return;
 
-    // إخفاء الزر إن كان التطبيق مثبّتاً فعلاً
+    // إن كان التطبيق مثبّتاً فعلاً فلا داعي للزر
     if (isStandalone) { btn.hidden = true; return; }
 
-    // آيفون: لا يدعم التثبيت التلقائي، نعرض الزر ليشرح خطوات "إضافة إلى الشاشة الرئيسية"
-    if (isIOS) showInstall();
+    // نُظهر الزر دائماً ليجده المستخدم بسهولة.
+    // الضغط عليه يفتح نافذة التثبيت الأصلية إن دعمها المتصفح،
+    // وإلا يعرض خطوات التثبيت اليدوي (وهي ضرورية في آيفون).
+    showInstall();
 
     btn.addEventListener('click', function () {
       if (installPrompt) {
