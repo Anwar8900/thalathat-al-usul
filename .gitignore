@@ -1,0 +1,21 @@
+# ملفات مؤقتة
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# محرّرات
+.vscode/
+.idea/
+*.swp
+
+# نسخة الصورة الأصلية (المستخدمة داخل assets/img)
+makka.jpg
+
+# ملفات PDF (حقوق نشر)
+*.pdf
+
+# أدوات استخراج نص الـ PDF
+_tools/
+
+# ملفات البناء
+*.log

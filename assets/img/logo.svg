@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="شعار ثلاثة الأصول">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16a06a"/>
+      <stop offset="1" stop-color="#075537"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e7f6ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="18" fill="url(#bg)"/>
+
+  <!-- قبة / رمز رملي -->
+  <path d="M32 7.5l2.3 4.1 4.6.5-3.4 3.1.9 4.5-4.4-2.2-4.4 2.2.9-4.5-3.4-3.1 4.6-.5z"
+        fill="#f3d98b" opacity=".95"/>
+
+  <!-- الكتاب المفتوح -->
+  <path d="M32 25.5c-4.6-3.4-9.9-4.6-16-4.2v20.4c6.1-.4 11.4.8 16 4.2z" fill="url(#page)"/>
+  <path d="M32 25.5c4.6-3.4 9.9-4.6 16-4.2v20.4c-6.1-.4-11.4.8-16 4.2z" fill="url(#page)"/>
+  <path d="M32 26v19" stroke="#0a6b45" stroke-width="2.4" stroke-linecap="round"/>
+  <g stroke="#8fc9ae" stroke-width="1.7" stroke-linecap="round">
+    <path d="M21 27.5v12.5"/>
+    <path d="M25.5 28.6v12.2"/>
+    <path d="M38.5 28.6v12.2"/>
+    <path d="M43 27.5v12.5"/>
+  </g>
+</svg>
