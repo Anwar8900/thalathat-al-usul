@@ -603,6 +603,14 @@ body.page .nav a.nav-install:hover { background: rgba(200, 164, 77, .16); color:
   font-size: .82rem; font-weight: 800; font-family: var(--font-display);
 }
 .steps-lead b { color: var(--accent); font-family: var(--font-display); }
+/* فقرة الربط بين الأصول الثلاثة والمسائل الأربع */
+.bridge-text {
+  max-width: 62ch;
+  margin: 1.1rem auto 0;
+  color: var(--text-soft);
+  font-size: 1.02rem;
+  line-height: 2.05;
+}
 
 .masafiq {
   display: grid; gap: 1.3rem; margin-top: 2.4rem;
