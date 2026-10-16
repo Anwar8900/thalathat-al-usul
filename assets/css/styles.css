@@ -869,6 +869,7 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
   line-height: 1.6;
   color: var(--gold, #c8a44d);
 }
+.prose h3.marabih .hz { color: var(--gold, #c8a44d) !important; }
 .prose h3.marabih span {
   display: block;
   font-size: .82em;
@@ -907,6 +908,23 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
   border: 1px solid rgba(200, 164, 77, .4);
   font-family: var(--font-quran);
   font-size: 1.18rem;
+  line-height: 2.3;
+  text-align: center;
+  color: var(--gold-soft, #f0d79a);
+}
+
+/* حديث أو دعاء في مربع ذهبي */
+.prose p.hadith,
+.prose p.dua,
+.hadith,
+.dua {
+  margin: 1.1rem 0;
+  padding: 1.05rem 1.3rem;
+  border-radius: var(--r-md);
+  background: rgba(200, 164, 77, .08);
+  border-inline-start: 4px solid var(--gold, #c8a44d);
+  font-family: var(--font-quran);
+  font-size: 1.12rem;
   line-height: 2.3;
   text-align: center;
   color: var(--gold-soft, #f0d79a);
