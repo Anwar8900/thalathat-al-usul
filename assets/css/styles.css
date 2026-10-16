@@ -869,8 +869,9 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
   line-height: 1.6;
   color: var(--gold, #c8a44d);
 }
-.prose h3.marabih .hz { color: var(--gold, #c8a44d) !important; }
-.prose h3.marabih span {
+.prose h3.marabih .hz { color: var(--gold, #c8a44d); }
+/* السطر الثاني من العنوان فقط (ابن مباشر) — لا يشمل .nw أو .hz */
+.prose h3.marabih > span:not(.nw):not(.hz) {
   display: block;
   font-size: .82em;
   font-weight: 600;
