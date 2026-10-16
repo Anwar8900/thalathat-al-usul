@@ -511,8 +511,7 @@ body.page .nav a.nav-install:hover { background: rgba(200, 164, 77, .16); color:
   transition: transform var(--t), box-shadow var(--t), border-color var(--t);
 }
 .info-item:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--green-400); }
-.info-item b { display: block; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: .35rem; color: var(--green-700); }
-[data-theme="dark"] .info-item b { color: var(--green-400); }
+.info-item b { display: block; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: .35rem; color: var(--accent); }
 
 /* ---------- 9. ترويسة الصفحات الداخلية ---------- */
 .page-head {
