@@ -531,6 +531,15 @@ body.page .nav a.nav-install:hover { background: rgba(200, 164, 77, .16); color:
   line-height: 1.9;
   text-shadow: 0 2px 14px rgba(0, 0, 0, .38), 0 1px 3px rgba(0, 0, 0, .3);
 }
+/* عنوان فرعي أسفل العنوان الرئيسي في صفحات الأصول */
+.page-head .lead-title {
+  margin: .2rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + .9vw, 1.7rem);
+  line-height: 1.8;
+  color: var(--gold, #c8a44d);
+}
+.page-head .lead + .lead { margin-top: .9rem; }
 /* رمز ﷺ وحده داخل العناوين: يحتاج ارتفاع سطر أكبر */
 .page-head h1 .honorific {
   font-size: .72em;
