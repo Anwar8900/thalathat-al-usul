@@ -7,7 +7,7 @@
   'use strict';
 
   var root = document.documentElement;
-  window.USUL_APP_VERSION = '1.4.1';
+  window.USUL_APP_VERSION = '1.4.2';
   var STORE_KEY = 'thalathat-al-usul-theme';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
