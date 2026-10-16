@@ -52,6 +52,7 @@
   --font-body: "Noto Naskh Arabic", "Segoe UI", Tahoma, "Geeza Pro", "Arabic Typesetting",
     "Traditional Arabic", system-ui, -apple-system, sans-serif;
   --font-display: "Cairo", "Tajawal", "Noto Kufi Arabic", "Segoe UI", Tahoma, "Geeza Pro", system-ui, sans-serif;
+  --font-quran: "Noto Naskh Arabic", "Traditional Arabic", "Amiri", "Scheherazade New", serif;
 }
 
 [data-theme="dark"] {
@@ -895,6 +896,21 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
   line-height: 2;
 }
 .gold-line .hz { color: var(--gold-bright, #f3d98b) !important; }
+
+/* آية معرولة في سطر مستقل */
+.prose p.ayah,
+.ayah {
+  margin: 1.2rem 0;
+  padding: 1.1rem 1.3rem;
+  border-radius: var(--r-md);
+  background: rgba(200, 164, 77, .08);
+  border: 1px solid rgba(200, 164, 77, .4);
+  font-family: var(--font-quran);
+  font-size: 1.18rem;
+  line-height: 2.3;
+  text-align: center;
+  color: var(--gold-soft, #f0d79a);
+}
 
 .note {
   padding: 1.4rem 1.5rem; border-radius: var(--r-md);
