@@ -335,7 +335,9 @@
     });
     box.querySelector('.guide-close').addEventListener('click', function () { box.remove(); });
     document.body.appendChild(box);
-    box.querySelector('.guide-close').focus();
+    // تركيز دون تمرير الصفحة حتى لا تقفز الشاشة عند فتح النافذة
+    try { box.querySelector('.guide-close').focus({ preventScroll: true }); }
+    catch (err) { box.querySelector('.guide-close').focus(); }
 
     // نؤجّل الاستماع للنقر الخارجي حتى تنتهي النقرة الحالية تماماً،
     // وإلا أُغلقت النافذة فور فتحها بنفس النقرة التي فتحتها
