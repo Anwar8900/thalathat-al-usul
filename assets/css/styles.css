@@ -836,6 +836,21 @@ body.page {
   border-color: var(--green-400); background: rgba(16, 70, 52, .8);
 }
 .list-cards b { display: block; font-family: var(--font-display); color: var(--accent); margin-bottom: .3rem; }
+/* الدليل داخل البطاقات */
+.dalil {
+  display: block;
+  margin-top: .7rem;
+  padding-top: .7rem;
+  border-top: 1px dashed var(--line);
+  font-size: .93rem;
+  line-height: 1.95;
+  color: var(--text-soft);
+}
+.dalil b { display: inline; color: var(--gold-deep, #8a6a12); margin: 0; }
+[data-theme="dark"] .dalil b,
+body.page .dalil b { color: var(--gold, #c8a44d); }
+/* تنبيه داخل الأقسام بلا هوامش زائدة */
+.note-inline { margin-bottom: 0; }
 
 .note {
   padding: 1.4rem 1.5rem; border-radius: var(--r-md);
