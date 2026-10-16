@@ -851,6 +851,28 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
 /* تنبيه داخل الأقسام بلا هوامش زائدة */
 .note-inline { margin-bottom: 0; }
 
+/* عنوان فرعي داخل الأقسام: سطران — العناوين الذهبية */
+.prose h3.marabih {
+  margin: 1.9rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + .8vw, 1.6rem);
+  line-height: 1.6;
+  color: var(--gold, #c8a44d);
+}
+.prose h3.marabih span {
+  display: block;
+  font-size: .82em;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+/* مربعات الأسماء المجرّدة داخل الإطار الذهبي */
+.list-cards > div.mini {
+  text-align: center;
+  padding: 1rem .8rem;
+}
+.list-cards > div.mini b { margin-bottom: 0; font-size: 1.22rem; }
+
 .note {
   padding: 1.4rem 1.5rem; border-radius: var(--r-md);
   background: rgba(14, 59, 44, .8); border: 1px dashed rgba(200, 164, 77, .5);
