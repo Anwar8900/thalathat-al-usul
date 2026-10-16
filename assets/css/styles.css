@@ -882,6 +882,20 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
 }
 .list-cards > div.mini b { margin-bottom: 0; font-size: 1.22rem; }
 
+/* سطر ختامي مميّز باللون الذهبي */
+.prose p.gold-line,
+.gold-line {
+  margin-top: 1.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--r-md);
+  background: rgba(200, 164, 77, .1);
+  border-inline-start: 4px solid var(--gold, #c8a44d);
+  color: var(--gold-soft, #f0d79a) !important;
+  font-weight: 700;
+  line-height: 2;
+}
+.gold-line .hz { color: var(--gold-bright, #f3d98b) !important; }
+
 .note {
   padding: 1.4rem 1.5rem; border-radius: var(--r-md);
   background: rgba(14, 59, 44, .8); border: 1px dashed rgba(200, 164, 77, .5);
