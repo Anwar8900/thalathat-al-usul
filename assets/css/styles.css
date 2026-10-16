@@ -891,12 +891,12 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
 .pager a {
   display: flex; flex-direction: column; gap: .25rem;
   padding: 1.3rem 1.4rem; border-radius: var(--r-md);
-  background: rgba(10, 46, 35, .8); border: 1px solid var(--line);
+  background: rgba(10, 46, 35, .8); border: 2px solid rgba(200, 164, 77, .55);
   box-shadow: var(--shadow-sm); color: var(--text);
   transition: transform var(--t), box-shadow var(--t), border-color var(--t), background-color var(--t);
 }
 .pager a:hover { background: rgba(16, 70, 52, .85); }
-.pager a:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--green-400); color: var(--text); }
+.pager a:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--gold-soft, #f0d79a); color: var(--text); }
 .pager a small { color: var(--muted); font-size: .84rem; font-weight: 700; }
 .pager a b { font-family: var(--font-display); font-size: 1.12rem; }
 .pager a.next { text-align: start; }
