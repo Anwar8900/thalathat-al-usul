@@ -240,6 +240,13 @@ li::marker { color: var(--accent); }
 }
 .nav a:hover { background: var(--accent-soft); color: var(--accent); transform: translateY(-1px); }
 .nav a[aria-current="page"] { background: var(--grad-brand); color: var(--on-accent); }
+/* رابط التثبيت في القائمة — مميّز بالذهبي */
+.nav a.nav-install { color: var(--gold-deep, #8a6a12); font-weight: 800; }
+.nav a.nav-install:hover { background: rgba(200, 164, 77, .18); color: var(--gold-deep, #8a6a12); }
+[data-theme="dark"] .nav a.nav-install,
+body.page .nav a.nav-install { color: var(--gold, #c8a44d); }
+[data-theme="dark"] .nav a.nav-install:hover,
+body.page .nav a.nav-install:hover { background: rgba(200, 164, 77, .16); color: var(--gold-soft, #f0d79a); }
 
 .header-tools { display: flex; align-items: center; gap: .5rem; }
 

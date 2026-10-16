@@ -7,7 +7,7 @@
   'use strict';
 
   var root = document.documentElement;
-  window.USUL_APP_VERSION = '1.1.1';
+  window.USUL_APP_VERSION = '1.1.2';
   var STORE_KEY = 'thalathat-al-usul-theme';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -271,23 +271,35 @@
     // وإلا يعرض خطوات التثبيت اليدوي (وهي ضرورية في آيفون).
     showInstall();
 
-    btn.addEventListener('click', function () {
-      if (installPrompt) {
-        var res = null;
-        try {
-          res = installPrompt.prompt();
-        } catch (err) {
-          res = null;
-        }
-        installPrompt = null;
-        // المتصفح الذي لا يفتح نافذة التثبيت (بلا واجهة) => نعرض الخطوات��ت يدوياً
-        if (!res || typeof res.then !== 'function') showInstallGuide();
-        return;
-      }
-      // متصفحات لا تدعم التثبيت التلقائي (آيفون / سفاري / بعض المتصفحات)
-      showInstallGuide();
-    });
+    // مسار موحّد للتثبيت يستخدمه زر الأعلى ورابط القائمة
+    btn.addEventListener('click', openInstall);
+    var navLink = $('#installNavLink');
+    if (navLink) {
+      navLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        var nav = $('#primaryNav');
+        if (nav) nav.classList.remove('open');
+        openInstall();
+      });
+    }
   });
+
+  function openInstall() {
+    if (installPrompt) {
+      var res = null;
+      try {
+        res = installPrompt.prompt();
+      } catch (err) {
+        res = null;
+      }
+      installPrompt = null;
+      // المتصفح الذي لا يفتح نافذة التثبيت => نعرض الخطوات يدوياً
+      if (!res || typeof res.then !== 'function') showInstallGuide();
+      return;
+    }
+    // متصفحات لا تدعم التثبيت التلقائي (آيفون / سفاري / بعض المتصفحات)
+    showInstallGuide();
+  }
 
   function showInstallGuide() {
     var isIOSSafari = /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -298,6 +310,15 @@
       : ['افتح الموقع في متصفح Chrome أو Edge',
          'اضغط قائمة المتصفح (⋮)',
          'اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»'];
+    try {
+      buildGuideBox(steps);
+    } catch (err) {
+      // ملاذ أخير يعمل في كل المتصفحات بلا استثناء
+      alert('تثبيت الموقع على جهازك:\n\n' + steps.join('\n'));
+    }
+  }
+
+  function buildGuideBox(steps) {
 
     var box = document.createElement('div');
     box.className = 'guide';
