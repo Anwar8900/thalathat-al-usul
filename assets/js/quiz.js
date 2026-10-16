@@ -1,6 +1,6 @@
 /* ==========================================================================
    ثلاثة الأصول — منطق الاختبار
-   عشرة أسئلة · أربعة خيارات · واحد صحيح · النتيجة من عشرة
+   أسئلة متعددة · أربعة خيارات · واحد صحيح · النتيجة من المجموع
    ========================================================================== */
 (function () {
   'use strict';
@@ -38,10 +38,24 @@
     resultText: document.getElementById('resultText'),
     retry: document.getElementById('retryBtn'),
     review: document.getElementById('quizReview'),
-    reviewList: document.getElementById('reviewList')
+    reviewList: document.getElementById('reviewList'),
+    leadCount: document.getElementById('quizLeadCount'),
+    scoreTotal: document.getElementById('scoreTotal')
   };
 
   if (!el.card || !TOTAL) return;
+
+  /* ---------- ضبط الأعداد حسب حجم بنك الأسئلة ---------- */
+  (function setCounts() {
+    if (el.scoreTotal) el.scoreTotal.textContent = ar(TOTAL);
+    if (el.leadCount) {
+      el.leadCount.textContent = TOTAL === 1
+        ? 'سؤال واحد'
+        : (TOTAL === 2 ? 'سؤالان' : (TOTAL <= 10 ? ar(TOTAL) + ' أسئلة' : ar(TOTAL) + ' سؤالاً'));
+    }
+    var bar = document.getElementById('quizProgress');
+    if (bar) bar.textContent = 'السؤال ' + ar(1) + ' من ' + ar(TOTAL);
+  })();
 
   /* ---------- بناء سؤال ---------- */
   function render() {
@@ -130,8 +144,8 @@
 
     if (score === TOTAL) {
       el.result.className = 'quiz-result perfect';
-      el.resultTitle.textContent = 'ما شاء الله، أجبتَ عن الأسئلة العشرة كلها إجابة صحيحة';
-      el.resultText.textContent = 'نتيجتك ١٠ من ١٠. فقد أتقنتَ الأصول الثلاثة: ربَّك ودينَك ونبيَّك صلى الله عليه وسلم. بارك الله فيك.';
+      el.resultTitle.textContent = 'ما شاء الله، أجبتَ عن الأسئلة كلها إجابة صحيحة';
+      el.resultText.textContent = 'نتيجتك ' + ar(TOTAL) + ' من ' + ar(TOTAL) + '. فقد أتقنتَ الأصول الثلاثة: ربَّك ودينَك ونبيَّك صلى الله عليه وسلم. بارك الله فيك.';
     } else {
       el.result.className = 'quiz-result partial';
       el.resultTitle.textContent = 'نتيجتك ' + ar(score) + ' من ' + ar(TOTAL);
