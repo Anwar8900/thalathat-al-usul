@@ -1333,6 +1333,11 @@ body.page .dalil b { color: var(--gold, #c8a44d); }
 }
 .result-actions .btn-ghost { color: var(--gold-soft); border-color: rgba(200, 164, 77, .5); }
 .result-actions .btn-ghost:hover { background: rgba(200, 164, 77, .15); color: var(--gold-soft); }
+/* زر "أعد الاختبار": نص أبيض فوق الخلفية الخضراء الداكنة */
+#retryBtn,
+#retryBtn:hover {
+  color: #ffffff;
+}
 
 /* مراجعة الأخطاء */
 .quiz-review { margin-top: 2.6rem; }
